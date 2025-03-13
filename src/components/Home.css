@@ -1,0 +1,26 @@
+/* Home.css */
+
+.home-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    background-color: #f4f4f4;
+    gap: 300px; /* Space between buttons */
+}
+
+.home-button {
+    padding: 20px 30px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    background-color: #004080;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.home-button:hover {
+    background-color: #0066cc;
+}
