@@ -32,6 +32,11 @@ const TravelPolicies = () => {
     }, []);
 
     const handleDelete = async (insuranceId) => {
+
+        const confirmDelete = window.confirm(
+            "Are you sure you want to cancel this policy? This action cannot be undone."
+        );
+        
         const userId = localStorage.getItem("userId");
     
         if (!userId) {
@@ -92,7 +97,6 @@ const TravelPolicies = () => {
 
     return (
         <div className="container">
-            <h2>Your Travel Policies</h2>
             {error && <p className="error-message">{error}</p>}
             {!error && policies.length > 0 && (
                 <table className="policies-table">
@@ -115,14 +119,16 @@ const TravelPolicies = () => {
                                 <td>{policy.endDate}</td>
                                 <td>{policy.price}</td>
                                 <td>
-                                    {/* Delete Button */}
-                                    <button onClick={() => handleDelete(policy.insuranceId)}>
-                                        Delete
-                                    </button>
                                     {/* Download Button for each policy */}
                                     <button onClick={() => downloadCSV(policy)}>
-                                        Download
+                                    📥 Download
                                     </button>
+                                    <span style={{ margin: "0 8px" }}></span>
+                                    {/* Delete Button */}
+                                    <button onClick={() => handleDelete(policy.insuranceId)}>
+                                    ❌ Cancel
+                                    </button>
+                                    
                                 </td>
                             </tr>
                         ))}

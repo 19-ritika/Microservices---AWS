@@ -1,24 +1,20 @@
-/* NavBar.css */
-
-/* Style for the navbar container */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #004080; /* Dark blue background */
+    background-color: #c29fcc;
     padding: 15px 30px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 0;
 }
 
-/* Brand name style */
 .h1 {
-    color: white;
-    font-size: 24px;
+    color: rgb(36, 31, 31);
+    font-size: 40px;
     font-weight: bold;
     margin: 0;
 }
 
-/* Style for the navigation list */
 .navbar ul {
     list-style: none;
     display: flex;
@@ -27,27 +23,21 @@
     padding: 0;
 }
 
-/* Style for list items */
 .navbar ul li {
     display: inline;
 }
 
-/* Style for links */
 .navbar ul li a {
     text-decoration: none;
-    color: white;
-    font-size: 18px;
+    color: rgb(17, 17, 18);
+    font-weight: bold;
+    font-size: 25px;
     padding: 8px 12px;
     border-radius: 5px;
     transition: background 0.3s ease;
 }
 
-/* Hover effect for links */
-.navbar ul li a:hover {
-    background-color: #0066cc; /* Lighter blue on hover */
-}
 
-/* Responsive design for mobile screens */
 @media (max-width: 768px) {
     .navbar {
         flex-direction: column;

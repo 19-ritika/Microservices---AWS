@@ -82,7 +82,7 @@ const PoliciesPage = () => {
 
     try {
       const response = await fetch(
-        `https://446h09yp37.execute-api.us-east-1.amazonaws.com/prod/cancel-insurance-api?userId=${encodeURIComponent(
+        `https://9bhvx8qj55.execute-api.us-east-1.amazonaws.com/prod/delete-car-insurance?userId=${encodeURIComponent(
           userId
         )}&insuranceId=${encodeURIComponent(insuranceId)}`,
         {
@@ -112,7 +112,6 @@ const PoliciesPage = () => {
 
   return (
     <div>
-      <h1>Policies</h1>
       <table>
         <thead>
           <tr>
@@ -138,14 +137,11 @@ const PoliciesPage = () => {
                 <td>{policy.price}</td>
                 <td>{policy.expiryDate}</td>
                 <td>
-                  <button onClick={() => handleDownloadPDF(policy)}>
+                  <button className="download-btn" onClick={() => handleDownloadPDF(policy)}>
                     📥 Download
                   </button>
                   <span style={{ margin: "0 8px" }}></span>
-                  <button
-                    onClick={() => handleCancelPolicy(policy.insuranceId)}
-                    style={{ backgroundColor: "red", color: "white" }}
-                  >
+                  <button className="cancel-btn" onClick={() => handleCancelPolicy(policy.insuranceId)}>
                     ❌ Cancel
                   </button>
                 </td>

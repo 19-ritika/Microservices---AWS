@@ -62,7 +62,6 @@ const VehicleForm = () => {
     
             const [vehicleData, serviceData] = await Promise.all([vehicleApi, serviceApi]);
     
-            // Ensure service data fields are correctly set
             const updatedServiceData = {
                 service_date: serviceData.service_date && serviceData.service_date !== "no_data_available" ? serviceData.service_date : "Not Available",
                 service_type: serviceData.service_type && serviceData.service_type !== "no_data_available" ? serviceData.service_type : "Not Available",
@@ -123,13 +122,15 @@ const VehicleForm = () => {
                 <h2>Enter Vehicle Registration Number</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="registration-container">
-                        <input
-                            type="text"
-                            placeholder="Registration Number"
-                            value={registrationNumber}
-                            onChange={handleInputChange}
-                            required
-                        />
+                    <input
+                        type="text"
+                        placeholder="Registration Number"
+                        value={registrationNumber}
+                        onChange={handleInputChange}
+                        maxLength={8}
+                        pattern="[A-Za-z0-9]{1,8}"
+                        required
+                    />
                         <button type="submit" disabled={isSubmitted}>Get</button>
                     </div>
                 </form>
@@ -141,7 +142,9 @@ const VehicleForm = () => {
                             <input 
                                 type="text" 
                                 value={vehicleDetails.make || ''} 
-                                onChange={(e) => setVehicleDetails({...vehicleDetails, make: e.target.value})} 
+                                onChange={(e) => setVehicleDetails({...vehicleDetails, make: e.target.value.slice(0, 20)})} 
+                                maxLength={20}
+                                required
                             />
                         </div>
                         <div>
@@ -149,7 +152,9 @@ const VehicleForm = () => {
                             <input 
                                 type="text" 
                                 value={vehicleDetails.model || ''} 
-                                onChange={(e) => setVehicleDetails({...vehicleDetails, model: e.target.value})} 
+                                onChange={(e) => setVehicleDetails({...vehicleDetails, model: e.target.value.slice(0, 20)})} 
+                                maxLength={20}
+                                required
                             />
                         </div>
                         <div>
@@ -166,7 +171,10 @@ const VehicleForm = () => {
                             <input 
                                 type="text" 
                                 value={vehicleDetails.registration_number || ''} 
-                                onChange={(e) => setVehicleDetails({...vehicleDetails, registration_number: e.target.value})} 
+                                onChange={(e) => setVehicleDetails({...vehicleDetails, registration_number: e.target.value.slice(0, 8)})} 
+                                maxLength={8}
+                                pattern="[A-Za-z0-9]{1,8}"
+                                required
                             />
                         </div>
                         <div>

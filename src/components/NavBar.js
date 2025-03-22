@@ -10,7 +10,7 @@ const NavBar = () => {
     return (
         //html component for nav bar
         <nav className="navbar">
-            <h1 className='h1'>SafeInsure</h1>
+            <h1 className='h1'>SafeInsure☂️</h1>
             <ul>
                 {accessToken && (
                     <>
