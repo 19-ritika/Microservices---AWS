@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./ResetPassword.css";
 
+// Component handles password reset via OTP
 const ResetPassword = () => {
     const [email, setEmail] = useState("");
     const [otp, setOtp] = useState("");
@@ -8,10 +9,10 @@ const ResetPassword = () => {
     const [message, setMessage] = useState("");
     const [otpSent, setOtpSent] = useState(false);
 
-    // API Gateway Base URL (Verify if /auth is correct)
+    // API Gateway Base URL for password reset actions
     const baseUrl = "https://oqlkiz04je.execute-api.us-east-1.amazonaws.com/prod";
 
-    // Function to send OTP
+    // Function to send OTP to user’s email for verification
     const handleSendOtp = async (e) => {
         e.preventDefault();
         setMessage("");
@@ -91,7 +92,7 @@ const ResetPassword = () => {
             setMessage("Error: " + error.message);
         }
     };
-
+    // Displays OTP request form or password reset form based on state
     return (
         <div className="reset-password">
             <h2>Reset Password</h2>

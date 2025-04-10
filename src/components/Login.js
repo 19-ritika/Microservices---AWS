@@ -2,18 +2,21 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
+// Login component handles user authentication and navigation
 const Login = ({ onLogin }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
     const navigate = useNavigate();
 
-    // Use API Gateway URL for authentication
+    // API Gateway endpoint for Cognito authentication
     const baseUrl = "https://oqlkiz04je.execute-api.us-east-1.amazonaws.com/prod/auth";
 
+    // Handles form submission, sends login request, and manages auth state
     const handleLogin = async (e) => {
         e.preventDefault();
-        setMessage(""); // Clear previous messages
+        // Clears any old error messages
+        setMessage(""); 
 
         try {
             const response = await fetch(baseUrl, {
@@ -33,12 +36,13 @@ const Login = ({ onLogin }) => {
                 // Save tokens and username in local storage
                 localStorage.setItem("accessToken", data.AccessToken);
                 localStorage.setItem("idToken", data.IdToken);
-                localStorage.setItem("userId", username); // Cognito does not return the username
+                // Cognito does not return the username
+                localStorage.setItem("userId", username); 
 
-                // Update authentication state in App.js
+                // Updates parent component’s auth state via callback
                 onLogin(data.AccessToken, data.IdToken, username);
 
-                // Navigate to home after successful login
+                // Redirects to home page on successful login
                 navigate("/home");
             } else {
                 setMessage(data.error || "Login failed");
@@ -47,7 +51,7 @@ const Login = ({ onLogin }) => {
             setMessage("Login failed: " + error.message);
         }
     };
-
+    // Renders the login form with input fields and error messaging
     return (
         <div className="login">
             <h2>Login</h2>

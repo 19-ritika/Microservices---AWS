@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './TravelForm.css';
 
+// Component manages travel insurance purchase process
 const TravelForm = () => {
     const [username, setUsername] = useState('');
     const [tripTitle, setTripTitle] = useState('');
@@ -16,6 +17,7 @@ const TravelForm = () => {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
 
+    // Fetches currency rates when component loads
     useEffect(() => {
         fetch('https://api.exchangerate-api.com/v4/latest/USD')
             .then(response => response.json())
@@ -23,6 +25,7 @@ const TravelForm = () => {
             .catch(() => setError('Failed to fetch currency rates'));
     }, []);
 
+    // Updates username or trip title based on input
     const handleInputChange = (event) => {
         if (event.target.name === 'username') {
             setUsername(event.target.value);
@@ -31,27 +34,32 @@ const TravelForm = () => {
         }
     };
 
+    // Adjusts price based on selected insurance type
     const handleInsuranceChange = (event) => {
         const selectedInsurance = event.target.value;
         setInsuranceType(selectedInsurance);
         setPrice(selectedInsurance === 'Long Term' ? 200 : 100);
     };
 
+    // Updates selected currency for price conversion
     const handleCurrencyChange = (event) => {
         setSelectedCurrency(event.target.value);
     };
 
+    // Converts base price to selected currency
     const convertPrice = (price, currency) => {
         const rate = currencyRates[currency];
         return rate ? (price * rate).toFixed(2) : price;
     };
 
+    // Updates converted price when price or currency changes
     useEffect(() => {
         if (currencyRates[selectedCurrency]) {
             setConvertedPrice(convertPrice(price, selectedCurrency));
         }
     }, [price, selectedCurrency, currencyRates]);
 
+    // Saves insurance data to API on final submission
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (isSubmitted) return;
@@ -134,7 +142,7 @@ const TravelForm = () => {
         }
     };
     
-
+    // Displays trip form and insurance options
     return (
         <div className="container">
             <div className="form-section">

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './TravelForm.css';
 
+// Component shows and manages user’s travel insurance policies
 const TravelPolicies = () => {
     const [policies, setPolicies] = useState([]);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(true);
 
+    // Fetches travel policies from API when component loads
     useEffect(() => {
         const userId = localStorage.getItem("userId");
 
@@ -31,6 +33,7 @@ const TravelPolicies = () => {
             });
     }, []);
 
+    // Deletes a policy via API and updates the list
     const handleDelete = async (insuranceId) => {
 
         const confirmDelete = window.confirm(
@@ -64,7 +67,7 @@ const TravelPolicies = () => {
         }
     };
 
-    // Function to generate CSV for a single policy and trigger download
+    // Function to generate CSV for a single policy and download
     const downloadCSV = (policy) => {
         const header = ["Policy ID", "Insurance Type", "Start Date", "End Date", "Price"];
         const row = [
@@ -77,24 +80,25 @@ const TravelPolicies = () => {
 
         // Create CSV content
         const csvContent = [
-            header.join(','), // Join header columns
-            row.join(',') // Join single policy row
-        ].join('\n'); // Join with a new line
+            header.join(','), 
+            row.join(',') 
+        ].join('\n'); 
 
-        // Create a Blob for the CSV file
+
         const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
 
-        // Create a link to trigger the download
+        // Create a link for the download
         const link = document.createElement('a');
         const url = URL.createObjectURL(blob);
         link.setAttribute('href', url);
-        link.setAttribute('download', `${policy.insuranceId}_policy.csv`); // Filename for download
+        link.setAttribute('download', `${policy.insuranceId}_policy.csv`); 
         link.style.visibility = 'hidden';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
     };
 
+    // Displays table of policies with download and cancel buttons
     return (
         <div className="container">
             {error && <p className="error-message">{error}</p>}

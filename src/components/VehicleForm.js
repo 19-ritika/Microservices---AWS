@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './VehicleForm.css';
 
+// Component manages vehicle insurance purchase process
 const VehicleForm = () => {
     const [registrationNumber, setRegistrationNumber] = useState('');
     const [vehicleDetails, setVehicleDetails] = useState(null);
@@ -14,6 +15,7 @@ const VehicleForm = () => {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [messageType, setMessageType] = useState('');
 
+    // Fetches currency rates when component loads
     useEffect(() => {
         fetch('https://api.exchangerate-api.com/v4/latest/USD')
             .then(response => response.json())
@@ -21,20 +23,24 @@ const VehicleForm = () => {
             .catch(() => setError('Failed to fetch currency rates'));
     }, []);
 
+    // Updates registration number from user input
     const handleInputChange = (event) => {
         setRegistrationNumber(event.target.value);
     };
 
+    // Adjusts price based on selected insurance type
     const handleInsuranceChange = (event) => {
         const selectedInsurance = event.target.value;
         setInsuranceType(selectedInsurance);
         setPrice(selectedInsurance === 'Premium' ? 200 : 100);
     };
 
+    // Updates selected currency for price conversion
     const handleCurrencyChange = (event) => {
         setSelectedCurrency(event.target.value);
     };
 
+    // Converts base price to selected currency
     const convertPrice = (price, currency) => {
         const rate = currencyRates[currency];
         return rate ? (price * rate).toFixed(2) : price;
@@ -46,6 +52,7 @@ const VehicleForm = () => {
         }
     }, [price, selectedCurrency, currencyRates]);
 
+    // Saves insurance data to API on final submission
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (isSubmitted) return;
@@ -116,6 +123,7 @@ const VehicleForm = () => {
         }
     };
 
+    // Shows vehicle form and insurance options
     return (
         <div className="container">
             <div className="form-section">

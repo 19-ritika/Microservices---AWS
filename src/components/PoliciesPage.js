@@ -3,12 +3,14 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import "./PoliciesPage.css";
 
+// Component displays and manages user's vehicle insurance policies
 const PoliciesPage = () => {
   const [policies, setPolicies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [userId, setUserId] = useState("");
 
+  // Fetches policies from API when component loads, using user ID
   useEffect(() => {
     const storedUserId = localStorage.getItem("userId");
 
@@ -20,6 +22,7 @@ const PoliciesPage = () => {
 
     setUserId(storedUserId);
 
+    // Calls API to get vehicle policies for the user
     const fetchPolicies = async () => {
       try {
         const response = await fetch(
@@ -50,6 +53,7 @@ const PoliciesPage = () => {
     fetchPolicies();
   }, []);
 
+  // Creates and downloads a PDF with policy details
   const handleDownloadPDF = (policy) => {
     const doc = new jsPDF();
     doc.setFontSize(18);
@@ -73,6 +77,7 @@ const PoliciesPage = () => {
     doc.save(`Policy_${policy.insuranceId}.pdf`);
   };
 
+  // Cancels a policy via API call and updates the list
   const handleCancelPolicy = async (insuranceId) => {
     const confirmDelete = window.confirm(
       "Are you sure you want to cancel this policy? This action cannot be undone."
@@ -102,6 +107,7 @@ const PoliciesPage = () => {
     }
   };
 
+  // Shows loading message while fetching data
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -110,6 +116,7 @@ const PoliciesPage = () => {
     return <div>Error: {error}</div>;
   }
 
+  // Builds table to show policies with download and cancel options
   return (
     <div>
       <table>

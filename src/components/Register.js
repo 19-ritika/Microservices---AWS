@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Register.css";
 
+// Component manages user registration process
 const Register = () => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -9,9 +10,10 @@ const Register = () => {
     const [message, setMessage] = useState("");
     const navigate = useNavigate();
 
-    // Use API Gateway URL for registration
+    // Use API Gateway URL for registration of new users
     const baseUrl = "https://oqlkiz04je.execute-api.us-east-1.amazonaws.com/prod/auth";
 
+    // Handles form submission and sends registration data
     const handleRegister = async (e) => {
         e.preventDefault();
         setMessage(""); // Clear previous messages
@@ -44,6 +46,7 @@ const Register = () => {
         }
     };
 
+    // Shows registration form with fields and feedback
     return (
         <div className="register">
             <h2>Register</h2>

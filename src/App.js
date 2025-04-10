@@ -12,8 +12,9 @@ import PoliciesPage from './components/PoliciesPage'; // Import the PoliciesPage
 import TravelPolicies from './components/TravelPolicies';
 import TravelForm from './components/TravelForm';
 
+// Main app component sets up routing and authentication
 function App() {
-    // Check if user is logged in through local storage access token
+    // Tracks login state using access token in local storage
     const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('accessToken'));
 
     // Update authentication state based on the stored token
@@ -36,6 +37,7 @@ function App() {
         setIsAuthenticated(false);
     };
 
+    // Sets up navigation and page routing
     return (
         <Router>
             <div>
